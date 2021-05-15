@@ -1,0 +1,41 @@
+def custom_pdf2jpg():
+    from PIL import Image
+    import pytesseract
+    import sys
+    from pdf2image import convert_from_path
+    import os
+    from os import listdir
+    from os.path import isfile, join
+
+    print("Please enter the path of the PDF files to be converted")
+    mypath = input()
+
+    file_list_2 = [f for f in listdir(mypath) if isfile(join(mypath, f))]
+    
+    file_list = []
+    
+    for i in file_list_2:
+        if ".pdf" in i:
+            file_list.append(i)
+    
+    print("")
+    print(f"Please enter the drive for the files to be saved on (E.G: '():/)")
+    drive_letter = input()
+    
+    print("")
+    print(f"Please enter the name of the folder where converted folders will be saved (Note: Must be an existing directory) (E.G.: '{drive_letter}:/()')")
+    mypath_2 = input()
+    
+    file_count = 1
+
+    for i in file_list:
+        pages = convert_from_path(f"{mypath}/{i}", 500, poppler_path = r"C:\Users\Admin\Downloads\Release-21.03.0\poppler-21.03.0\Library\bin")
+        os.mkdir("{}:/{}/{}".format(drive_letter, mypath_2, "File_{}".format(file_count)))
+        image_count = 1
+        for k in pages:
+            filename = f"{drive_letter}:/{mypath_2}/File_{file_count}/page_{image_count}.jpg"
+            k.save(filename, "PNG")
+            image_count += 1
+        file_count += 1
+        
+    return "Conversion Completed"
