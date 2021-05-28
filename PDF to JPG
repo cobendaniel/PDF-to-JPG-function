@@ -6,10 +6,12 @@ def custom_pdf2jpg():
     import os
     from os import listdir
     from os.path import isfile, join
-
+    
+    # Input the directory where the pdf files to be converted are located
     print("Please enter the directory of your pdf files")
     mypath = input()
-
+    
+    # Create a list of files in the previously inputted directory and filter out non-pdf files
     file_list_2 = [f for f in listdir(mypath) if isfile(join(mypath, f))]
     
     file_list = []
@@ -18,19 +20,24 @@ def custom_pdf2jpg():
         if ".pdf" in i:
             file_list.append(i)
     
+    # Specify the drive you would like to save converted files to
     print("")
     print(f"Please enter the Drive you would you like to save your results to (e.g: ():/()")
     drive_letter = input()
     
+    # Specify the folder you would like to save converted files to
     print("")
     print(f"Please enter directory of your target folder (must be an existing folder) (e.g: If you would like to save to {drive_letter}:/folders/myfolders, input folders/myfolders")
     mypath_2 = input()
     
+    # Use a loop to convert files and store them in newly generated folders that use the name of the source files for convenience purposes
     file_count = 1
 
     for i in file_list:
         pages = convert_from_path(f"{mypath}/{i}", 500, poppler_path = r"C:\Users\Admin\Downloads\Release-21.03.0\poppler-21.03.0\Library\bin")
         os.mkdir("{}:/{}/{}".format(drive_letter, mypath_2, "{}_{}".format(i, file_count)))
+        
+        # Used to specify the naming format of newly generated folders and JPG files. 
         print("")
         print(f"Converting file: {i}")
         image_count = 1
