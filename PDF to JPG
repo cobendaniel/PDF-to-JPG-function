@@ -34,7 +34,7 @@ def custom_pdf2jpg():
     file_count = 1
 
     for i in file_list:
-        pages = convert_from_path(f"{mypath}/{i}", 500, poppler_path = r"C:\Users\Admin\Downloads\Release-21.03.0\poppler-21.03.0\Library\bin")
+        pages = convert_from_path(f"{mypath}/{i}", dpi = 500, poppler_path = r"C:\Users\Admin\Downloads\Release-21.03.0\poppler-21.03.0\Library\bin")
         os.mkdir("{}:/{}/{}".format(drive_letter, mypath_2, "{}_{}".format(i, file_count)))
         
         # Used to specify the naming format of newly generated folders and JPG files. 
